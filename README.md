@@ -11,11 +11,4 @@ cd Cpp-PlayGround
 
 ## Requirements
 
-Command line argument parsing and logging:
-```{bash}
-# 
-git clone https://github.com/jarro2783/cxxopts.git
-git clone https://github.com/SergiusTheBest/plog.git
-```
-
-Using Catch2.
+Using cxxopts, plog and Catch2.
