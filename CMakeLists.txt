@@ -18,10 +18,11 @@ FetchContent_MakeAvailable(cxxopts plog)
 add_executable(${PROJECT_NAME} main.cpp src/bts.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE inc)
 target_link_libraries(${PROJECT_NAME} PRIVATE cxxopts plog)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
-# if(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
-#     add_subdirectory(tests)
-# endif() #PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME
+if(PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME)
+    add_subdirectory(tests)
+endif() #PROJECT_NAME STREQUAL CMAKE_PROJECT_NAME
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
