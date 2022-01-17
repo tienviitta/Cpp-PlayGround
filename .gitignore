@@ -2,3 +2,4 @@ build/
 cxxopts/
 plog/
 .vscode/
+.cache/

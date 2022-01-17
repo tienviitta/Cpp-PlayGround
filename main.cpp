@@ -22,10 +22,16 @@ int main(int argc, const char **argv) {
     options.add_options()
         ("d, debug", "Enable debugging")
         ("r, run", "Run", cxxopts::value<int>()->default_value("0"))
-        ("n, size", "Size", cxxopts::value<int>()->default_value("10"));
+        ("n, size", "Size", cxxopts::value<int>()->default_value("10"))
+        ("h, help", "Print usage");
     // clang-format on
     options.allow_unrecognised_options();
     auto result = options.parse(argc, argv);
+    if (result.count("help"))
+    {
+      std::cout << options.help() << std::endl;
+      exit(0);
+    }
     bool debug = result["debug"].as<bool>();
     int run = result["run"].as<int>();
     int size = result["size"].as<int>();
