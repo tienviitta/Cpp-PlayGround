@@ -13,9 +13,10 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/SergiusTheBest/plog.git
   GIT_TAG        1.1.5
 )
+
 FetchContent_MakeAvailable(cxxopts plog)
 
-add_executable(${PROJECT_NAME} main.cpp src/bts.cpp)
+add_executable(${PROJECT_NAME} main.cpp src/myclass.cpp)
 target_include_directories(${PROJECT_NAME} PRIVATE inc)
 target_link_libraries(${PROJECT_NAME} PRIVATE cxxopts plog)
 

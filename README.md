@@ -11,11 +11,8 @@ cd Cpp-PlayGround
 
 ## Requirements
 
-Command line argument parsing and logging:
-```{bash}
-# 
-git clone https://github.com/jarro2783/cxxopts.git
-git clone https://github.com/SergiusTheBest/plog.git
-```
+Using [cxxopts](https://github.com/jarro2783/cxxopts) and [plog](https://github.com/SergiusTheBest/plog) through CMake dependency management.
 
-Using Catch2.
+## Reference
+
+[C++ Core Guidelines](http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#main)

@@ -1,6 +1,7 @@
-#include "bts.h"
+#include "myclass.h"
 #include <cxxopts.hpp>
 #include <iostream>
+#include <memory>
 #include <plog/Appenders/ColorConsoleAppender.h>
 #include <plog/Formatters/TxtFormatter.h>
 #include <plog/Init.h>
@@ -45,10 +46,63 @@ int main(int argc, const char **argv) {
 
     // Run
     switch (run) {
-    case 0:
-        PLOG_INFO << "Binary Search:";
-        PLOG_INFO << " index: " << binarySearchRun(size);
+    case 0: {
+        PLOG_INFO << "Smart Pointers I:";
+        // create unique pointer to proprietary class
+        // std::unique_ptr<MyClass> myClass1(new MyClass());
+        std::unique_ptr<MyClass> myClass1 = std::make_unique<MyClass>();
+        std::unique_ptr<MyClass> myClass2(new MyClass("String 2"));
+        PLOG_DEBUG << myClass1->getText();
+        PLOG_DEBUG << myClass2->getText();
+        // call member function using ->
+        myClass1->setText("String 1");
+        PLOG_DEBUG << myClass1->getText();
+        PLOG_DEBUG << myClass2->getText();
+        // use the dereference operator *
+        *myClass1 = *myClass2;
+        PLOG_DEBUG << myClass1->getText();
+        PLOG_DEBUG << myClass2->getText();
+        // use the .get() function to retrieve a raw pointer to the object
+        PLOG_INFO << " Stack addresses " << myClass1.get() << " and "
+                  << myClass2.get();
         break;
+    }
+    case 1: {
+        PLOG_INFO << "Smart Pointers II:";
+        std::unique_ptr<MyClass> uniPtr0 =
+            std::make_unique<MyClass>("I'm Unique");
+        std::unique_ptr<MyClass> uniPtr1 =
+            std::make_unique<MyClass>("I'm Unique too");
+        PLOG_INFO << " uniPtr0: " << &uniPtr0 << ": " << uniPtr0->getText();
+        PLOG_INFO << " uniPtr1: " << &uniPtr1 << ": " << uniPtr1->getText();
+        PLOG_INFO << " move: " << uniPtr0->getText(std::move(uniPtr1));
+        PLOG_INFO << " uniPtr0: " << &uniPtr0 << ": " << uniPtr0->getText();
+        // Warning! Prevent segmentation fault!
+        if (uniPtr1) {
+            PLOG_INFO << " uniPtr1: " << &uniPtr1 << ": " << uniPtr1->getText();
+        }
+        break;
+    }
+    case 2: {
+        PLOG_INFO << "Smart Pointers III:";
+        std::shared_ptr<MyClass> shPtr0 =
+            std::make_unique<MyClass>("I'm Shared");
+        std::shared_ptr<MyClass> shPtr1 =
+            std::make_unique<MyClass>("I'm Shared too");
+        PLOG_INFO << " shPtr0: " << &shPtr0 << ": " << shPtr0->getText();
+        PLOG_INFO << " shPtr1: " << &shPtr1 << ": " << shPtr1->getText();
+        PLOG_INFO << " usage: " << shPtr0.use_count() << ", "
+                  << shPtr1.use_count();
+        PLOG_INFO << " copy: " << shPtr0->getText(shPtr1);
+        PLOG_INFO << " usage: " << shPtr0.use_count() << ", "
+                  << shPtr1.use_count();
+        PLOG_INFO << " shPtr0: " << &shPtr0 << ": " << shPtr0->getText();
+        // Warning! Prevent segmentation fault!
+        if (shPtr1) {
+            PLOG_INFO << " shPtr1: " << &shPtr1 << ": " << shPtr1->getText();
+        }
+        break;
+    }
     default:
         break;
     }
